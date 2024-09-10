@@ -16,18 +16,14 @@ RUN mkdir /workspace
 RUN apt-get update --yes && \
     apt-get upgrade --yes && \
     apt install --yes --no-install-recommends git wget curl bash libgl1 software-properties-common openssh-server nginx && \
-    apt install "python3.11-dev" "python3.11-venv" -y --no-install-recommends; \
+    apt install "python3.11-dev" "python3.11-venv" -y --no-install-recommends \
     apt-get autoremove -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
 
-# Set up Python and pip only if PYTHON_VERSION is specified
-RUN ln -s /usr/bin/python3.11 /usr/bin/python && \
-    rm /usr/bin/python3 && \
-    ln -s /usr/bin/python3.11 /usr/bin/python3 && \
-    curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
-    python get-pip.py; \
+# Set up Python
+RUN ln -s /usr/bin/python3.11 /usr/bin/python
 
 
 
